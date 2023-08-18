@@ -53,7 +53,7 @@ const SignUp = () => {
             setAlert(<Alert type="success" message="Sign up success, navigate to dashboard in few second"/>);
             setButtonSignUpContent(<i className="fa-solid fa-circle-check fs-1" style={{color: "green"}}></i>);
             
-            setUserSessionLogin(auth.id, auth.fullname, auth.email);
+            setUserSessionLogin(auth.id, auth.fullname, auth.token);
             setIsNavigate(true);
         } else if (auth.statusSignUp === "error") {            
             setAlert(<Alert type="danger" message="Sign up fail, email already existed"/>);

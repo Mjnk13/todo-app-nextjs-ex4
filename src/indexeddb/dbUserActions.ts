@@ -73,7 +73,10 @@ export const addUserToDb = createAsyncThunk('user/add', async(user:authUserExten
                       userId: user.userId,
                       fullname: user.fullname,
                     },
-                    sk
+                    sk,
+                    {
+                        expiresIn: 60 * 60 * 24 //second * minute * hour
+                    }
                 );
                 resolve({result: true, token: token});
             }
