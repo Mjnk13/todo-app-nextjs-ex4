@@ -40,7 +40,7 @@ const SignIn = () => {
     }, [isNavigate]);
 
     useEffect(() => {
-        if ((userLogged.token && !auth.statusSignIn)){
+        if (userLogged.token == "" && !auth.statusSignIn){
             router.replace("../logged-in-redirect");
         } else if(auth.statusSignIn === "redirect"){
             router.replace("../dashboard");
@@ -49,7 +49,7 @@ const SignIn = () => {
         } else if(auth.statusSignIn === "success"){
             setAlert(<Alert type="success" message="Sign in success, navigate to dashboard in few second"/>);
             setButtonSignInContent(<i className="fa-solid fa-circle-check fs-1" style={{color: "green"}}></i>);
-            setUserSessionLogin(auth.id, auth.fullname, auth.email);
+            setUserSessionLogin(auth.id, auth.fullname, auth.token);
             setIsNavigate(true);
         } else if (auth.statusSignIn === "error") {            
             setAlert(<Alert type="danger" message="Sign in fail, email or password is not correct"/>);

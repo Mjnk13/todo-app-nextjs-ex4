@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { verifyUserToken } from "@/indexeddb/dbUserActions";
+import { setUserSessionLogOut } from "@/sessionStorage/sessionStorageAction";
 
 
 const LoggedInRedirect = () => {
@@ -25,6 +26,7 @@ const LoggedInRedirect = () => {
             setMessage("You already log in ! Redirect to Dash Board in few second");
             setTimeout(() => {router.replace("../dashboard")}, 3000);
         } else if (auth.verifyTokenStatus === "error") {
+            setUserSessionLogOut();
             setAlertType("danger");
             setMessage("You are not log in or token expired ! Redirect to Sign In page in few second");
             setTimeout(() => {router.replace("../sign-in")}, 3000);

@@ -15,7 +15,7 @@ const SignOut = () => {
     const userLogged = JSON.parse(sessionStorage.getItem("user-login") as string);
 
     useEffect(()=>{
-        if(userLogged.logIn) {        
+        if(userLogged.userToken !== "") {        
             setUserSessionLogOut();
             setAlertType("info");
             setMessage("Sign out successfully ! Redirect to Start Page in few second");

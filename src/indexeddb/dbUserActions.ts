@@ -12,7 +12,8 @@ interface authUserExtend extends authUser {
     fullname: string,
     userId?: number
 }
-const SECRET_KEY = "test_todo_app123!";
+
+const sk = process.env.SECRET_KEY as string;
 
 export const userLoginValidate = createAsyncThunk('user/login-validate', async ( user:authUser ) => {
     return new Promise<{result: boolean, token: string}>((resolve, reject) => {
@@ -25,20 +26,22 @@ export const userLoginValidate = createAsyncThunk('user/login-validate', async (
             let query = indexMail.get([user.email]);
 
             query.onerror = () => reject({result: false, token: ""});
-            query.onsuccess = () => {  
+            query.onsuccess =  () => {  
                 if (query.result && query.result.password === user.password) {
                     let queryKey = indexMail.getKey([user.email]);
                     queryKey.onerror = () => reject({result: false, token: ""});
                     queryKey.onsuccess = () => {
                         let queryResult = query.result;
-                        console.log(jwt);
                         
                         const token = jwt.sign(
                             {
-                              userId: queryResult.userId,
+                              userId: queryResult.id,
                               fullname: queryResult.fullname,
                             },
-                            SECRET_KEY
+                            sk,
+                            {
+                                expiresIn: 60 * 60 * 24 //second * minute * hour
+                            }
                         );
                         queryResult.userId = queryKey.result;
                         resolve({result: true, token: token});
@@ -70,7 +73,7 @@ export const addUserToDb = createAsyncThunk('user/add', async(user:authUserExten
                       userId: user.userId,
                       fullname: user.fullname,
                     },
-                    SECRET_KEY
+                    sk
                 );
                 resolve({result: true, token: token});
             }
@@ -86,8 +89,7 @@ export const addUserToDb = createAsyncThunk('user/add', async(user:authUserExten
 export const verifyUserToken = createAsyncThunk('user/token-verify', async(userToken:string)=> {
     return new Promise<{result: boolean, userToken?:string}>((resolve, reject) => {
         try {
-            const decoded = jwt.verify(userToken, SECRET_KEY);
-            console.log(decoded);
+            const decoded = jwt.verify(userToken, sk);
             resolve({result: true, userToken: userToken});
           } catch (error) {
              reject({result: false});

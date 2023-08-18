@@ -24,7 +24,7 @@ const initialUserState:authUser = {
     signInProcessDone: false,
 }
 
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 export const authSlice = createSlice({
     name: "auth",
@@ -45,6 +45,7 @@ export const authSlice = createSlice({
         clearAuth(state){
             state.id = -1;
             state.fullname = "";
+            state.token = "";
             state.verifyTokenStatus =  "",
             state.statusSignUp =  "";
             state.statusSignIn = "";
@@ -91,7 +92,6 @@ export const authSlice = createSlice({
             state.verifyTokenStatus = "loading";
         })
         .addCase(verifyUserToken.fulfilled, (state, action) => {
-            state.token = action.payload.userToken as string;
             state.verifyTokenStatus = "success";
         })
         .addCase(verifyUserToken.rejected, (state, action) => {

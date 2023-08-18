@@ -36,9 +36,9 @@ const DashBoard = () => {
     }, []);
 
     useEffect(()=>{
-        if(auth.verifyTokenStatus === "success") {
+        if(auth.verifyTokenStatus === "error") {
             router.replace("../logged-in-redirect");
-        } else if (auth.verifyTokenStatus === "error") {
+        } else if (auth.verifyTokenStatus === "success") {
             dispatch(getAllTodoTasksByUserId(userLogged.userId) as any);
         }
     },[auth.verifyTokenStatus]);
