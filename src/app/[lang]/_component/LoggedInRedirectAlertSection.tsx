@@ -7,8 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { verifyUserToken } from "@/indexeddb/dbUserActions";
 import { setUserSessionLogOut } from "@/sessionStorage/sessionStorageAction";
 
-
-const LoggedInRedirect = () => {
+const LoggedInRedirectAlertSection = ({lang}: {lang: any}) => {
     const router = useRouter();
     const dispatch = useDispatch();
     const userLogged = JSON.parse(sessionStorage.getItem("user-login") as string);
@@ -24,12 +23,12 @@ const LoggedInRedirect = () => {
         if(auth.verifyTokenStatus === "success") {
             setAlertType("info");
             setMessage("You already log in ! Redirect to Dash Board in few second");
-            setTimeout(() => {router.replace("../dashboard")}, 3000);
+            setTimeout(() => {router.replace(`../${lang.name}/dashboard`)}, 3000);
         } else if (auth.verifyTokenStatus === "error") {
             setUserSessionLogOut();
             setAlertType("danger");
             setMessage("You are not log in or token expired ! Redirect to Sign In page in few second");
-            setTimeout(() => {router.replace("../sign-in")}, 3000);
+            setTimeout(() => {router.replace(`../${lang.name}/sign-in`)}, 3000);
         }
     },[auth.verifyTokenStatus]);
 
@@ -38,4 +37,4 @@ const LoggedInRedirect = () => {
     );
 }
  
-export default LoggedInRedirect;
+export default LoggedInRedirectAlertSection;

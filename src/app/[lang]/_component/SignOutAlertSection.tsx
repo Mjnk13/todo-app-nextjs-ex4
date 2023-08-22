@@ -3,11 +3,11 @@
 import Alert from "../_component/Alert";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { setUserSessionLogOut } from "../../sessionStorage/sessionStorageAction";
-import { clearAuth } from "../../redux/authSlice";
-import { useAuthUserDispatch } from "../../redux/hook";
+import { setUserSessionLogOut } from "@/sessionStorage/sessionStorageAction";
+import { clearAuth } from "@/redux/authSlice";
+import { useAuthUserDispatch } from "@/redux/hook";
 
-const SignOut = () => {
+const SignOutAlertSection = ({lang}: {lang: any}) => {
     const dispatch = useAuthUserDispatch();
     const router = useRouter();
     const [ message, setMessage ] = useState("");
@@ -20,9 +20,9 @@ const SignOut = () => {
             setAlertType("info");
             setMessage("Sign out successfully ! Redirect to Start Page in few second");
             dispatch(clearAuth());
-            setTimeout(() => { router.replace("../") }, 3000);
+            setTimeout(() => { router.replace(`../${lang.name}/`) }, 3000);
         } else {
-            router.replace("../");
+            router.replace(`../${lang.name}/`);
         }
     },[]);
 
@@ -31,4 +31,4 @@ const SignOut = () => {
     );
 }
  
-export default SignOut;
+export default SignOutAlertSection;

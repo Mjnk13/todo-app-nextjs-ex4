@@ -1,0 +1,60 @@
+{
+    "name": "vi",
+    "getStarted": {
+      "title": "Hoàn Thành Mọi Thứ Với TODO!",
+      "button": "Bắt Đầu"
+    },
+    "signUp": {
+        "title": "Chào Mừng Người Dùng!",
+        "subTitle": "Đăng Nhập Để Thêm Công Việc Nào!",
+        "inputTitle": {
+            "fullname": "Họ Và Tên",
+            "email": "Email",
+            "password": "Mật Khẩu",
+            "confirmPassword": "Xác Nhận Mật Khẩu"
+        },
+        "inputLabel": {
+            "fullname": "Nhập Họ Tên",
+            "email": "Nhập Email",
+            "password": "Nhập Mật Khẩu",
+            "confirmPassword": "Xác Nhận Mật Khẩu"
+        },
+        "button": "Đăng Ký",
+        "haveAccount": {
+            "context": "Đã có tài khoản ?",
+            "link": "Đăng Nhập"
+        }
+    },
+    "signIn": {
+        "title": "Chào Mừng Quay Trở Lại!",
+        "inputTitle": {
+            "email": "Email",
+            "password": "Mật Khẩu"
+        },
+        "inputLabel": {
+            "email": "Nhập Email",
+            "password": "Nhập Mật Khẩu"
+        },
+        "button": "Đăng Nhập",
+        "forgotPasswordLink": "Quên Mật Khẩu?",
+        "notHaveAccount": {
+            "context": "Không có tài khoản ?",
+            "link": "Đăng Ký"
+        }
+    },
+    "dashboard": {
+        "greetingUser": "Chào mừng",
+        "signOutButton": "Đăng Xuất",
+        "greetingTime": "Chào Buổi Sáng!",
+        "taskListTitle": "Danh Sách Công Việc",
+        "taskListSubTitle": "Công Việc Hằng Ngày",
+        "addTaskModal": {
+            "title": "Nhập Công Việc!",
+            "inputLabel": "Công Việc",
+            "button": {
+                "add": "Thêm",
+                "cancel": "Hủy"
+            }
+        }
+    }
+}

@@ -1,15 +1,14 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Alert from "../_component/Alert";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodoTask, getAllTodoTasksByUserId } from "../../indexeddb/dbTodoActions";
+import { addTodoTask, getAllTodoTasksByUserId } from "@/indexeddb/dbTodoActions";
 import TodoList from "../_component/TodoList";
 import { verifyUserToken } from "@/indexeddb/dbUserActions";
 
-const DashBoard = () => {
+const DashBoardTaskListSection = ({lang}: {lang: any}) => {
     const dispatch = useDispatch();
     const router = useRouter();
     const userLogged = JSON.parse(sessionStorage.getItem("user-login") as string);
@@ -18,7 +17,7 @@ const DashBoard = () => {
 
     const [ newTaskInput, getNewTaskInput ] = useState("");
     const [ isButtonAddTodoTaskDisable, setIsButtonAddTodoTaskDisable ] = useState(false);
-    const [ buttonAddTodoTaskContent, setButtonAddTodoTaskContent ] = useState (<>Add</>);
+    const [ buttonAddTodoTaskContent, setButtonAddTodoTaskContent ] = useState (<>{lang.dashboard.addTaskModal.button.add}</>);
     const [ alertDashBoard, setAlertDashBoard ] = useState(<></>);
     const [ alertModal, setAlertModal ] = useState(<></>);
     const [isAlertModalClear, setIsAlertModalClear] = useState(true);
@@ -44,7 +43,7 @@ const DashBoard = () => {
     },[auth.verifyTokenStatus]);
 
     useEffect(() => {
-        const t = setTimeout(() => {
+        const t1 = setTimeout(() => {
             if(!isAlertModalClear) {
                 setAlertModal(<></>);
                 setIsAlertModalClear(true);
@@ -52,20 +51,20 @@ const DashBoard = () => {
         }, 3000);
       
         return () => {
-            clearTimeout(t)
+            clearTimeout(t1)
         }
     }, [alertModal])
 
     useEffect(() => {
-        const t = setTimeout(() => {
+        const t2 = setTimeout(() => {
             if(!isAlertDashboardClear) {
-                setAlertModal(<></>);
+                setAlertDashBoard(<></>);
                 setIsAlertDashboardClear(true);
             }
         }, 3000);
       
         return () => {
-            clearTimeout(t)
+            clearTimeout(t2)
         }
     }, [alertDashBoard])
 
@@ -87,7 +86,7 @@ const DashBoard = () => {
 
         } else if (todoState.status === "error") {
             if (todoState.for === "add task") {
-                setButtonAddTodoTaskContent(<>Add</>);
+                setButtonAddTodoTaskContent(<>{lang.dashboard.addTaskModal.button.add}</>);
                 setIsButtonAddTodoTaskDisable(false);
                 setAlertModal(<Alert type="danger" message="Something went wrong, can't not add new task"/>);
                 setIsAlertModalClear(false);
@@ -107,7 +106,7 @@ const DashBoard = () => {
 
         if (!newTaskInput) {
             setIsButtonAddTodoTaskDisable(false);
-            setButtonAddTodoTaskContent(<>Add</>);
+            setButtonAddTodoTaskContent(<>{lang.dashboard.addTaskModal.button.add}</>);
             setAlertModal(<Alert type="danger" message="can not add empty task"/>);
             setIsAlertModalClear(false);
         }
@@ -127,55 +126,42 @@ const DashBoard = () => {
     }
 
     return ( 
-        <div className="dashboard p-0">
-            {/* Modal */}
-            <div className="modal fade" id="addTodoTaskModal" tabIndex={-1} aria-labelledby="addTodoTaskModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered align-items-center">
-                <div className="position-absolute start-50 translate-middle w-100 text-center" style={{zIndex: 1, top: "25%"}}>
-                    {alertModal}
-                </div>
-                    <div className="modal-content">
-                        <div className="modal-header align-self-center">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">Enter Task!</h1>
-                            {/* <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
-                        </div>
-                        <div className="modal-body">
-                            <div className="form-floating mb-3">
-                                <input type="text" className="form-control ps-4 text-center" id="new-task-input" placeholder="full name" value={newTaskInput} onChange={e => getNewTaskInput(e.target.value)}/>
-                                <label htmlFor="new-task-input" className="w-100 text-center"><i className="fa-solid fa-clipboard-list mx-3"></i>Task</label>
+        <div className="todo-list-area my-3 py-4 px-4 px-sm-5 position-relative">
+            <div className="position-absolute start-50 top-0 translate-middle text-center" style={{zIndex: 1 }}>
+                    {alertDashBoard}
+            </div>
+            <div className="d-flex flex-wrap justify-content-between align-items-center">
+                <p className="m-0 fs-5">{lang.dashboard.taskListSubTitle}</p>
+                    {/* Modal */}
+                <div className="modal fade" id="addTodoTaskModal" tabIndex={-1} aria-labelledby="addTodoTaskModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered align-items-center">
+                    <div className="position-absolute start-50 translate-middle w-100 text-center" style={{zIndex: 1, top: "25%"}}>
+                        {alertModal}
+                    </div>
+                        <div className="modal-content">
+                            <div className="modal-header align-self-center">
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">{lang.dashboard.addTaskModal.title}</h1>
+                                {/* <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
                             </div>
-                        </div>
-                        <div className="modal-footer justify-content-around">
-                            <button type="button" className="btn custom-btn-1" onClick={addTaskBtnHandle} disabled={isButtonAddTodoTaskDisable}>{buttonAddTodoTaskContent}</button>
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <div className="modal-body">
+                                <div className="form-floating mb-3">
+                                    <input type="text" className="form-control ps-4 text-center" id="new-task-input" placeholder="full name" value={newTaskInput} onChange={e => getNewTaskInput(e.target.value)}/>
+                                    <label htmlFor="new-task-input" className="w-100 text-center"><i className="fa-solid fa-clipboard-list mx-3"></i>{lang.dashboard.addTaskModal.inputLabel}</label>
+                                </div>
+                            </div>
+                            <div className="modal-footer justify-content-around">
+                                <button type="button" className="btn custom-btn-1" onClick={addTaskBtnHandle} disabled={isButtonAddTodoTaskDisable}>{buttonAddTodoTaskContent}</button>
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">{lang.dashboard.addTaskModal.button.cancel}</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+                
+                <button type="button" className="btn fs-5" data-bs-toggle="modal" data-bs-target="#addTodoTaskModal"><i className="fa-solid fa-circle-plus" style={{color: "#F700C4"}}></i></button>
             </div>
-
-            <div className="user-welcome-background"></div>
-            <div className="user-welcome text-center mb-5">
-                <img className="" src="/images/user-avatar.png" alt="User Avatar"/>
-                <p className="fs-3">Welcome, {userLogged.userFullName}</p>
-                <Link href={"/sign-out"}><button className="btn btn-danger">Logout</button></Link>
-            </div>
-            <div className="dashboard-clock text-center my-5 pt-5">
-                <h3 className="mb-3 text-end">Good Evening!</h3>
-                <img src="/images/clock.png" alt="clock" />
-            </div>
-            <h3 style={{color: "#610101"}}>Task List</h3>
-            <div className="todo-list-area my-3 py-4 px-4 px-sm-5 position-relative">
-                <div className="position-absolute start-50 top-0 translate-middle text-center" style={{zIndex: 1 }}>
-                        {alertDashBoard}
-                </div>
-                <div className="d-flex flex-wrap justify-content-between align-items-center">
-                    <p className="m-0 fs-5">Daily Tasks</p>
-                    <button type="button" className="btn fs-5" data-bs-toggle="modal" data-bs-target="#addTodoTaskModal"><i className="fa-solid fa-circle-plus" style={{color: "#F700C4"}}></i></button>
-                </div>
-                {todoState.data && <TodoList todoTaskList={todoState.data} ></TodoList> }
-            </div>
+            {todoState.data && <TodoList todoTaskList={todoState.data} ></TodoList> }
         </div>
     );
 }
  
-export default DashBoard;
+export default DashBoardTaskListSection;

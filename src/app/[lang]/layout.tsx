@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import ReduxProvider from './ReduxProvider'
+import Navbar from './Navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,13 +12,14 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({
-  children,
+  children, params
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+  params: any
 }) {
   return (
     <ReduxProvider>
-      <html lang="en">
+      <html lang={params.lang}>
         <head>
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,7 +31,10 @@ export default function RootLayout({
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
         </head>
         <body className={inter.className}>
-          <img className='position-absolute top-0 start-0' src="/images/background.png" alt="background decorate" style={{zIndex: "-1"}}/>
+          <header>
+            <Navbar lang={params.lang}/>
+          </header>
+          <img className='position-fixed start-0' src="/images/background.png" alt="background decorate" style={{zIndex: "-1", top:"3rem"}}/>
           <div className='position-relative App'>
             {children}
           </div>

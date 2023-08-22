@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTodoTaskById, updateTodoTaskDone } from "../../indexeddb/dbTodoActions";
+import { deleteTodoTaskById, updateTodoTaskDone } from "@/indexeddb/dbTodoActions";
 
 type todoTask = {
     id: number

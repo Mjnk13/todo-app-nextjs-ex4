@@ -1,5 +1,6 @@
 body {
-  background-color: #ece8ea;
+  background-color: #ece8ea !important;
+  padding-top: 3rem;
 }
 
 form input {

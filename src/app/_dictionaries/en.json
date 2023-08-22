@@ -1,0 +1,60 @@
+{
+    "name": "en",
+    "getStarted": {
+      "title": "Get Things Done with TODO!",
+      "button": "Get Started"
+    },
+    "signUp": {
+        "title": "Welcome User!",
+        "inputTitle": {
+            "fullname": "Fullname",
+            "email": "Email",
+            "password": "Password",
+            "confirmPassword": "Confirm Password"
+        },
+        "subTitle": "Lets Get Signup to add tasks",
+        "inputLabel": {
+            "fullname": "Enter your Full Name",
+            "email": "Enter your Email",
+            "password": "Enter your Password",
+            "confirmPassword": "Confirm Password"
+        },
+        "button": "SignUp",
+        "haveAccount": {
+            "context": "Already have an Account ?",
+            "link": "SignIn"
+        }
+    },
+    "signIn": {
+        "title": "Welcome Back!",
+        "inputTitle": {
+            "email": "Email",
+            "password": "Password"
+        },
+        "inputLabel": {
+            "email": "Enter your Email",
+            "password": "Enter your Password"
+        },
+        "button": "SignIn",
+        "forgotPasswordLink": "Forget Password?",
+        "notHaveAccount": {
+            "context": "Don't have an Account ?",
+            "link": "SignUp"
+        }
+    },
+    "dashboard": {
+        "greetingUser": "Welcome",
+        "signOutButton": "Logout",
+        "greetingTime": "Good Evening!",
+        "taskListTitle": "Task List",
+        "taskListSubTitle": "Daily Tasks",
+        "addTaskModal": {
+            "title": "Enter Task!",
+            "inputLabel": "Task",
+            "button": {
+                "add": "Add",
+                "cancel": "Cancel"
+            }
+        }
+    }
+}

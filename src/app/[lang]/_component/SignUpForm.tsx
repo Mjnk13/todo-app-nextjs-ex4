@@ -3,13 +3,13 @@
 import Link from 'next/link'
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { addUserToDb } from "../../indexeddb/dbUserActions";
+import { addUserToDb } from "@/indexeddb/dbUserActions";
 import { useSelector, useDispatch } from "react-redux";
-import { setUserSessionLogin } from "../../sessionStorage/sessionStorageAction";
+import { setUserSessionLogin } from "@/sessionStorage/sessionStorageAction";
 import Alert from "../_component/Alert";
-import { setSignUpProcessDone, setStatusSignUp } from "../../redux/authSlice";
+import { setSignUpProcessDone, setStatusSignUp } from "@/redux/authSlice";
 
-const SignUp = () => {
+const SignUpForm = ({lang}: {lang: any}) => {
     interface authUser {
         userId?: number,
         fullname: string,
@@ -25,15 +25,15 @@ const SignUp = () => {
     const [ userEmail, getUserEmail ] = useState ("");
     const [ userPassword, getUserPassword ] = useState ("");
     const [ userConfirmPassword, getUserConfirmPassword ] = useState ("");
-    const [ buttonSignUpContent, setButtonSignUpContent ] = useState (<>SignUp</>);
+    const [ buttonSignUpContent, setButtonSignUpContent ] = useState (<>{lang.signUp.button}</>);
     const [ alert, setAlert ] = useState(<></>);
     const [ isNavigate, setIsNavigate ] = useState(false);
     const [ isButtonSignUpDisable, setIsButtonSignUpDisable ] = useState(false);
     const userLogged = JSON.parse(sessionStorage.getItem("user-login") as string);
 
-    useEffect(()=> {
+    useEffect(()=> {      
         if(auth.signUpProcessDone)
-            router.replace("../logged-in-redirect");
+            router.replace(`../${lang.name}/logged-in-redirect`);
     }, []);
 
     useEffect(() => {
@@ -43,10 +43,10 @@ const SignUp = () => {
     }, [isNavigate]);
 
     useEffect(() => {
-        if ((userLogged.token && !auth.statusSignUp)){
-            router.replace("../logged-in-redirect");
-        } else if(auth.statusSignUp === "redirect"){
-            router.replace("../dashboard");
+        if (userLogged.userToken && !auth.statusSignUp)
+            router.replace(`../${lang.name}/logged-in-redirect`);
+        else if(auth.statusSignUp === "redirect"){
+            router.replace(`../${lang.name}/dashboard`);
             dispatch(setSignUpProcessDone("done"));
             dispatch(setStatusSignUp("finish"));
         } else if(auth.statusSignUp === "success"){
@@ -57,7 +57,7 @@ const SignUp = () => {
             setIsNavigate(true);
         } else if (auth.statusSignUp === "error") {            
             setAlert(<Alert type="danger" message="Sign up fail, email already existed"/>);
-            setButtonSignUpContent(<>SignUp</>);
+            setButtonSignUpContent(<>{lang.signUp.button}</>);
             setIsButtonSignUpDisable(false);
         }
             
@@ -100,49 +100,42 @@ const SignUp = () => {
             setIsButtonSignUpDisable(true);
             dispatch(addUserToDb(User) as any);
         } else {
-            setButtonSignUpContent(<>SignUp</>);
+            setButtonSignUpContent(<>{lang.signUp.button}</>);
             setIsButtonSignUpDisable(false);
         }
     }
 
     return ( 
-        <div className="sign-up">
-            <div className="container text-center">
-                <h3 className="fw-bold">Welcome User!</h3>
-                <p className="mt-3">Lets get sign up to add tasks</p>
-                <i className="fa-solid fa-pen-nib fs-1 mt-3"></i>
-                <form className="mt-3" id="sign-up-form">
-                    {alert}
-                    <h5 className="text-start ms-3">Full name:</h5>
-                    <div className="form-floating mb-3">
-                        <input type="text" className="form-control ps-4" id="full-name-user-input-sign-up" placeholder="full name" onChange={e => getUserFullName(e.target.value)}/>
-                        <label htmlFor="full-name-user-input-sign-up" className="w-100"><i className="fa-solid fa-user mx-3"></i>Enter Your Full Name</label>
-                    </div>
-
-                    <h5 className="text-start ms-3">Email:</h5>
-                    <div className="form-floating mb-3">
-                        <input type="email" className="form-control ps-4" id="email-user-input-sign-up" placeholder="example@email.com" onChange={e => getUserEmail(e.target.value)}/>
-                        <label htmlFor="email-user-input-sign-up" className="w-100"><i className="fa-solid fa-envelope mx-3"></i>Enter Your Email</label>
-                    </div>
-                    
-                    <h5 className="text-start ms-3">Password:</h5>
-                    <div className="form-floating mb-3">
-                        <input type="password" className="form-control ps-4" id="password-user-input-sign-up" placeholder="password" onChange={e => getUserPassword(e.target.value)}/>
-                        <label htmlFor="password-user-input-sign-up" className="w-100"><i className="fa-solid fa-lock mx-3"></i>Enter Your Password</label>
-                    </div>
-
-                    <h5 className="text-start ms-3">Confirm Password:</h5>
-                    <div className="form-floating mb-3">
-                        <input type="password" className="form-control ps-4" id="confirm-password-user-input-sign-up" placeholder="confirm password" onChange={e => getUserConfirmPassword(e.target.value)}/>
-                        <label htmlFor="confirm-password-user-input-sign-up" className="w-100"><i className="fa-solid fa-lock mx-3"></i>Confirm Password</label>
-                    </div>
-
-                    <button form="sign-up-form" className="btn custom-btn-1 w-100 py-3 mt-3" disabled={isButtonSignUpDisable} onClick={(e:React.MouseEvent) => signUpFormSubmitHandler(e)}>{buttonSignUpContent}</button>
-                    <p className="mt-3">Already have an Account ? <Link href="/sign-in/" style={{color: "#F700C4"}}>SignIn</Link></p>
-                </form>
+        <form className="mt-3 text-center" id="sign-up-form">
+            {alert}
+            <h5 className="text-start ms-3">{lang.signUp.inputTitle.fullname}:</h5>
+            <div className="form-floating mb-3">
+                <input type="text" className="form-control ps-4" id="full-name-user-input-sign-up" placeholder="full name" onChange={e => getUserFullName(e.target.value)}/>
+                <label htmlFor="full-name-user-input-sign-up" className="w-100"><i className="fa-solid fa-user mx-3"></i>{lang.signUp.inputLabel.fullname}</label>
             </div>
-        </div>
+
+            <h5 className="text-start ms-3">{lang.signUp.inputTitle.email}:</h5>
+            <div className="form-floating mb-3">
+                <input type="email" className="form-control ps-4" id="email-user-input-sign-up" placeholder="example@email.com" onChange={e => getUserEmail(e.target.value)}/>
+                <label htmlFor="email-user-input-sign-up" className="w-100"><i className="fa-solid fa-envelope mx-3"></i>{lang.signUp.inputLabel.email}</label>
+            </div>
+            
+            <h5 className="text-start ms-3">{lang.signUp.inputTitle.password}:</h5>
+            <div className="form-floating mb-3">
+                <input type="password" className="form-control ps-4" id="password-user-input-sign-up" placeholder="password" onChange={e => getUserPassword(e.target.value)}/>
+                <label htmlFor="password-user-input-sign-up" className="w-100"><i className="fa-solid fa-lock mx-3"></i>{lang.signUp.inputLabel.password}</label>
+            </div>
+
+            <h5 className="text-start ms-3">{lang.signUp.inputTitle.confirmPassword}:</h5>
+            <div className="form-floating mb-3">
+                <input type="password" className="form-control ps-4" id="confirm-password-user-input-sign-up" placeholder="confirm password" onChange={e => getUserConfirmPassword(e.target.value)}/>
+                <label htmlFor="confirm-password-user-input-sign-up" className="w-100"><i className="fa-solid fa-lock mx-3"></i>{lang.signUp.inputLabel.confirmPassword}</label>
+            </div>
+
+            <button form="sign-up-form" className="btn custom-btn-1 w-100 py-3 mt-3" disabled={isButtonSignUpDisable} onClick={(e:React.MouseEvent) => signUpFormSubmitHandler(e)}>{buttonSignUpContent}</button>
+            <p className="mt-3">{lang.signUp.haveAccount.context} <Link href={`../${lang.name}/sign-in/`} style={{color: "#F700C4"}}>{lang.signUp.haveAccount.link}</Link></p>
+        </form>
     );
 }
  
-export default SignUp;
+export default SignUpForm;
