@@ -46,12 +46,12 @@ const SignInForm = ({lang}: {lang: any}) => {
             dispatch(setSignInProcessDone("done"));
             dispatch(setStatusSignIn("finish"));
         } else if(auth.statusSignIn === "success"){
-            setAlert(<Alert type="success" message="Sign in success, navigate to dashboard in few second"/>);
+            setAlert(<Alert type="success" message={lang.signIn.alert.signInSuccessMessage}/>);
             setButtonSignInContent(<i className="fa-solid fa-circle-check fs-1" style={{color: "green"}}></i>);
             setUserSessionLogin(auth.id, auth.fullname, auth.token);
             setIsNavigate(true);
         } else if (auth.statusSignIn === "error") {            
-            setAlert(<Alert type="danger" message="Sign in fail, email or password is not correct"/>);
+            setAlert(<Alert type="danger" message={lang.signIn.alert.signInErrorMessage}/>);
             setButtonSignInContent(<>{lang.signIn.button}</>);
             setIsButtonSignInDisable(false);
         }
@@ -59,9 +59,9 @@ const SignInForm = ({lang}: {lang: any}) => {
 
     function validateUserSignInForm(email_input:string, password_input:string):boolean {
         if (email_input === "")
-            { setAlert(<Alert type="danger" message="Email is empty !"/>); return false; }
+            { setAlert(<Alert type="danger" message={lang.signIn.alert.emailEmpty}/>); return false; }
         else if(password_input === "")
-            { setAlert(<Alert type="danger" message="Password is empty !"/>); return false; }
+            { setAlert(<Alert type="danger" message={lang.signIn.alert.passwordEmpty}/>); return false; }
         
         return true;
     }

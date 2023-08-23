@@ -32,7 +32,7 @@ export default function RootLayout({
         </head>
         <body className={inter.className}>
           <header>
-            <Navbar lang={params.lang}/>
+            <Navbar params={params}/>
           </header>
           <img className='position-fixed start-0' src="/images/background.png" alt="background decorate" style={{zIndex: "-1", top:"3rem"}}/>
           <div className='position-relative App'>

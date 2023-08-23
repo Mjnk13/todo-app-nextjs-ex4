@@ -50,13 +50,13 @@ const SignUpForm = ({lang}: {lang: any}) => {
             dispatch(setSignUpProcessDone("done"));
             dispatch(setStatusSignUp("finish"));
         } else if(auth.statusSignUp === "success"){
-            setAlert(<Alert type="success" message="Sign up success, navigate to dashboard in few second"/>);
+            setAlert(<Alert type="success" message={lang.signUp.alert.signUpSuccessMessage}/>);
             setButtonSignUpContent(<i className="fa-solid fa-circle-check fs-1" style={{color: "green"}}></i>);
             
             setUserSessionLogin(auth.id, auth.fullname, auth.token);
             setIsNavigate(true);
         } else if (auth.statusSignUp === "error") {            
-            setAlert(<Alert type="danger" message="Sign up fail, email already existed"/>);
+            setAlert(<Alert type="danger" message={lang.signUp.alert.signUpErrorMessage}/>);
             setButtonSignUpContent(<>{lang.signUp.button}</>);
             setIsButtonSignUpDisable(false);
         }
@@ -65,15 +65,15 @@ const SignUpForm = ({lang}: {lang: any}) => {
 
     function validateUserSignUpForm(fullname_input: string, email_input:string, password_input:string, confirm_password_input:string):boolean {
         if (fullname_input === "")
-            {setAlert(<Alert type="danger" message="Full name is empty !"/>); return false; }
+            {setAlert(<Alert type="danger" message={lang.signUp.alert.fullnameEmpty}/>); return false; }
         else if (email_input === "")
-            {setAlert(<Alert type="danger" message="Email is empty !"/>); return false; }
+            {setAlert(<Alert type="danger" message={lang.signUp.alert.emailEmpty}/>); return false; }
         else if (!(/\S+@\S+\.\S+/.test(email_input))) 
-            { setAlert(<Alert type="danger" message="Email is not valid !"/>); return false; }
+            { setAlert(<Alert type="danger" message={lang.signUp.alert.emailInvalid}/>); return false; }
         else if(password_input === "")
-            { setAlert(<Alert type="danger" message="Password is empty !"/>); return false; }
+            { setAlert(<Alert type="danger" message={lang.signUp.alert.passwordEmpty}/>); return false; }
         else if(password_input !== confirm_password_input)
-            { setAlert(<Alert type="danger" message="Confirm password is not matched with password above !"/>); return false }
+            { setAlert(<Alert type="danger" message={lang.signUp.alert.confirmPasswordNotMatching}/>); return false }
         
         return true;
     }

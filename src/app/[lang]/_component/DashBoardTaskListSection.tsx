@@ -74,13 +74,13 @@ const DashBoardTaskListSection = ({lang}: {lang: any}) => {
                 getNewTaskInput("");
                 setButtonAddTodoTaskContent(<>Add</>);
                 setIsButtonAddTodoTaskDisable(false);
-                setAlertModal(<Alert type="success" message="Add new task successfully"/>);
+                setAlertModal(<Alert type="success" message={lang.dashboard.alert.addNewTaskSuccess}/>);
                 setIsAlertModalClear(false);
             } else if (todoState.for === "update task is done by task id") {
-                setAlertDashBoard(<Alert type="success" message="Update task done successfully"/>);
+                setAlertDashBoard(<Alert type="success" message={lang.dashboard.alert.updateTaskDoneSuccess}/>);
                 setIsAlertDashboardClear(false);
             } else if (todoState.for === "delete task is done by task id") {
-                setAlertDashBoard(<Alert type="success" message="Delete task successfully"/>);
+                setAlertDashBoard(<Alert type="success" message={lang.dashboard.alert.deleteTaskSuccess}/>);
                 setIsAlertDashboardClear(false);
             }
 
@@ -88,13 +88,13 @@ const DashBoardTaskListSection = ({lang}: {lang: any}) => {
             if (todoState.for === "add task") {
                 setButtonAddTodoTaskContent(<>{lang.dashboard.addTaskModal.button.add}</>);
                 setIsButtonAddTodoTaskDisable(false);
-                setAlertModal(<Alert type="danger" message="Something went wrong, can't not add new task"/>);
+                setAlertModal(<Alert type="danger" message={lang.dashboard.alert.addNewTaskError}/>);
                 setIsAlertModalClear(false);
             } else if (todoState.for === "update task is done by task id") {
-                setAlertDashBoard(<Alert type="danger" message="Something went wrong, can't not update task done"/>);
+                setAlertDashBoard(<Alert type="danger" message={lang.dashboard.alert.updateTaskDoneError}/>);
                 setIsAlertDashboardClear(false);
             } else if (todoState.for === "delete task is done by task id") {
-                setAlertDashBoard(<Alert type="danger" message="Something went wrong, can't not delete task"/>);
+                setAlertDashBoard(<Alert type="danger" message={lang.dashboard.alert.deleteTaskError}/>);
                 setIsAlertDashboardClear(false);
             }
         }
@@ -107,7 +107,7 @@ const DashBoardTaskListSection = ({lang}: {lang: any}) => {
         if (!newTaskInput) {
             setIsButtonAddTodoTaskDisable(false);
             setButtonAddTodoTaskContent(<>{lang.dashboard.addTaskModal.button.add}</>);
-            setAlertModal(<Alert type="danger" message="can not add empty task"/>);
+            setAlertModal(<Alert type="danger" message={lang.dashboard.alert.newTaskInputEmpty}/>);
             setIsAlertModalClear(false);
         }
         else {

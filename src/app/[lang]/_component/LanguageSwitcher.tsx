@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { i18n } from '@/i18n-config'
 
-const LanguageSwitcher = () => {
+const LanguageSwitcher = ({lang}: {lang: any}) => {
     const pathName = usePathname()
     const redirectedPathName = (locale: string) => {
         if (!pathName) 
@@ -17,7 +17,7 @@ const LanguageSwitcher = () => {
     return (
         <div className="dropdown">
             <a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Language
+                {lang.navbar.languageButton}
             </a>
 
             <ul className="dropdown-menu" style={{minWidth: "5rem"}}>

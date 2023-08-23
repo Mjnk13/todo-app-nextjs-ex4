@@ -1,5 +1,8 @@
 {
     "name": "vi",
+    "navbar": {
+        "languageButton": "Ngôn ngữ"
+    },
     "getStarted": {
       "title": "Hoàn Thành Mọi Thứ Với TODO!",
       "button": "Bắt Đầu"
@@ -23,6 +26,15 @@
         "haveAccount": {
             "context": "Đã có tài khoản ?",
             "link": "Đăng Nhập"
+        },
+        "alert": {
+            "signUpSuccessMessage": "Đăng ký thành công, chuyển hướng tới dashboard trong vài giây nữa",
+            "signUpErrorMessage": "Đăng ký thất bại, email đã tồn tại",
+            "fullnameEmpty": "Họ và tên bị trống !",
+            "emailInvalid": "Email không hợp lệ !",
+            "emailEmpty": "Email bị trống !",
+            "passwordEmpty": "Mật khẩu bị trống !",
+            "confirmPasswordNotMatching": "Xác nhận mật khẩu không khớp với mật khẩu trên !"
         }
     },
     "signIn": {
@@ -40,6 +52,12 @@
         "notHaveAccount": {
             "context": "Không có tài khoản ?",
             "link": "Đăng Ký"
+        },
+        "alert": {
+            "signInSuccessMessage": "Đăng nhập thành công, chuyển hướng tới dashboard trong vài giây nữa",
+            "signInErrorMessage": "Đăng nhập thất bại, email hoặc mật khẩu không đúng",
+            "emailEmpty": "Email bị trống !",
+            "passwordEmpty": "Mật khẩu bị trống !"
         }
     },
     "dashboard": {
@@ -55,6 +73,15 @@
                 "add": "Thêm",
                 "cancel": "Hủy"
             }
+        },
+        "alert": {
+            "addNewTaskSuccess": "Thêm công việc mới thành công",
+            "updateTaskDoneSuccess": "Cập nhật tình trạng công việc thành công",
+            "deleteTaskSuccess": "Xóa công việc thành công",
+            "addNewTaskError": "Xảy ra sự cố, không thể thêm công việc mới",
+            "updateTaskDoneError": "Xảy ra sự cố, không thể cập nhật trạng thái công việc",
+            "deleteTaskError": "Xảy ra sự cố, không thể xóa công việc",
+            "newTaskInputEmpty": "Không thể thêm công việc mà tên bị trống"
         }
     }
 }

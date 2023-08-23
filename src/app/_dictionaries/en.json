@@ -1,5 +1,8 @@
 {
     "name": "en",
+    "navbar": {
+        "languageButton": "Language"
+    },
     "getStarted": {
       "title": "Get Things Done with TODO!",
       "button": "Get Started"
@@ -23,6 +26,15 @@
         "haveAccount": {
             "context": "Already have an Account ?",
             "link": "SignIn"
+        },
+        "alert": {
+            "signUpSuccessMessage": "Sign up success, navigate to dashboard in few second",
+            "signUpErrorMessage": "Sign up fail, email already existed",
+            "fullnameEmpty": "Full name is empty !",
+            "emailInvalid": "Email is not valid !",
+            "emailEmpty": "Email is empty !",
+            "passwordEmpty": "Password is empty !",
+            "confirmPasswordNotMatching": "Confirm password is not matched with password above !"
         }
     },
     "signIn": {
@@ -40,6 +52,12 @@
         "notHaveAccount": {
             "context": "Don't have an Account ?",
             "link": "SignUp"
+        },
+        "alert": {
+            "signInSuccessMessage": "Sign in success, navigate to dashboard in few second",
+            "signInErrorMessage": "Sign in fail, email or password is not correct",
+            "emailEmpty": "Email is empty !",
+            "passwordEmpty": "Password is empty !"
         }
     },
     "dashboard": {
@@ -55,6 +73,15 @@
                 "add": "Add",
                 "cancel": "Cancel"
             }
+        },
+        "alert": {
+            "addNewTaskSuccess": "Add new task successfully",
+            "updateTaskDoneSuccess": "Update task done successfully",
+            "deleteTaskSuccess": "Delete task successfully",
+            "addNewTaskError": "Something went wrong, can't not add new task",
+            "updateTaskDoneError": "Something went wrong, can't not update task done",
+            "deleteTaskError": "Something went wrong, can't not delete task",
+            "newTaskInputEmpty": "Can not add empty task"
         }
     }
 }
